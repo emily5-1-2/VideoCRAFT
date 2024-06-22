@@ -26,9 +26,6 @@ class VideoRecog_Model(nn.Module):
       return out
   
 class AverageMeter(object):
-    """
-    Computes and stores the average and current value
-    """
     def __init__(self):
         self.reset()
 
@@ -183,8 +180,12 @@ val_loader   = DataLoader(hmdb51_val_v1, batch_size=bs, shuffle=True, **kwargs)
 test_loader  = DataLoader(hmdb51_test, batch_size=bs, shuffle=False, **kwargs)
 
 model = VideoRecog_Model()
-for param in model.base_model.parameters():
-    param.requires_grad = False
+
+fix_base = False
+
+if fix_base:
+    for param in model.base_model.parameters():
+        param.requires_grad = False
 
 #model = torch.load('hmdb51_finetune.pth')
 print(model)
