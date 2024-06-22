@@ -1,5 +1,6 @@
 *.gif
 *.avi
 *.txt
+!requirements.txt
 *.pyc
 *.pth
