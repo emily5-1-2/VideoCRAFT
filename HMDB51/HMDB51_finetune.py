@@ -1,6 +1,6 @@
 import torch
 from torch.utils.data import random_split, DataLoader
-from torch.optim.lr_scheduler import StepLR
+from torch.optim.lr_scheduler import StepLR, ReduceLROnPlateau
 import torchvision
 import transforms as T
 import os
@@ -91,7 +91,8 @@ if torch.cuda.is_available():
 
 optimizer = torch.optim.Adam(model.parameters(), lr=lr)
 
-scheduler = StepLR(optimizer, step_size=1, gamma=gamma)
+#scheduler = StepLR(optimizer, step_size=1, gamma=gamma)
+scheduler = ReduceLROnPlateau(optimizer=optimizer, patience=3, factor=0.5, min_lr=1e-8)
 
 print("Launching Action Recognition Model training")
 os.makedirs('ckpts', exist_ok=True)
