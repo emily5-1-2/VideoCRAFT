@@ -1,12 +1,16 @@
 av==12.0.0
+gluoncv==0.10.5.post0
 imageio==2.34.0
 ipython==8.12.3
+matplotlib==3.8.3
 numpy
 opencv_python==4.9.0.80
 opencv_python_headless==4.10.0.82
+pandas==2.0.3
 Pillow==10.3.0
 scikit_learn
-scipy==1.13.1
+scipy
+seaborn==0.13.2
 tensorflow==2.16.1
 torch==2.1.2
 torchvision==0.16.2
