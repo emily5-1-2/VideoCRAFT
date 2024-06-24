@@ -138,12 +138,12 @@ test_tfms =  torchvision.transforms.Compose([
                                              T.Normalize(mean=[0.43216, 0.394666, 0.37645], std=[0.22803, 0.22145, 0.216989]),
                                              T.CenterCrop((112, 112))
                                              ])
-hmdb51_train = torchvision.datasets.HMDB51('video_data/', 'test_train_splits/', num_frames,
+hmdb51_train = torchvision.datasets.HMDB51('hmdb51_video_data/', 'hmdb51_test_train_splits/', num_frames,
                                                 step_between_clips = clip_steps, fold=1, train=True,
                                                 transform=train_tfms, num_workers=num_workers)
 
 
-hmdb51_test = torchvision.datasets.HMDB51('video_data/', 'test_train_splits/', num_frames,
+hmdb51_test = torchvision.datasets.HMDB51('hmdb51_video_data/', 'hmdb51_test_train_splits/', num_frames,
                                                 step_between_clips = clip_steps, fold=1, train=False,
                                                 transform=test_tfms, num_workers=num_workers)
       
