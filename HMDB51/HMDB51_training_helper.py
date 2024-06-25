@@ -96,3 +96,5 @@ def test(model, loader, text='Validation'):
     total_loss /= len(loader.dataset)
     print(text + ' Average Loss: {:.6f} Average Accuracy: {}/{} ({:.0f})%'.format(
          Loss.avg, correct, Acc.count , 100. * Acc.avg ))
+    
+    return Loss.avg

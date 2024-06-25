@@ -98,12 +98,12 @@ print("Launching Action Recognition Model training")
 os.makedirs('ckpts', exist_ok=True)
 for epoch in range(1, total_epochs + 1):
     train(config, model, train_loader, optimizer, epoch)
-    test(model, val_loader, text="Validation")
+    val_loss = test(model, val_loader, text="Validation")
     if (epoch+1) % hmdb_args.ckpt_freq == 0:
         ckpt_path = os.path.join('ckpts', f'ViT-{epoch+1}epochs.pt')
         torch.save(model.state_dict(), ckpt_path)
         print(f'Checkpoint saved at {ckpt_path}')
-    scheduler.step()
+    scheduler.step(val_loss)
 
 test(model, test_loader, text="Test")
 
