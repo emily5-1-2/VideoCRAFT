@@ -95,7 +95,6 @@ class Craft(BaseConceptExtractor):
         """
 
         #(n_samples, channels, num_frames, height, width)
-
         vid_frame_size = inputs.shape[3]
 
         # extract patches from the input data, keep patches on cpu
