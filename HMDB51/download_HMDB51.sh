@@ -7,8 +7,12 @@ if [ ! -d "hmdb51_video_data" ]; then
     unrar e hmdb51_org.rar
     rm hmdb51_org.rar
     mv *.rar hmdb51_video_data
-    python HMDB51_splitting.py
+    echo "Organizing HMDB51 dataset files..."
+    python3 HMDB51_splitting.py
     rm hmdb51_video_data/*.rar
+    echo "HMDB51 dataset files organized"
+else
+    echo "hmdb51_video_data already downloaded"
 fi
 
 if [ ! -f transforms.py ]; then
