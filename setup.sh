@@ -9,6 +9,12 @@ else
     echo >&2 "Cannot complete setup"
 fi
 
+if [ ! -f transforms.py ]; then
+    wget https://raw.githubusercontent.com/pytorch/vision/6de158c473b83cf43344a0651d7c01128c7850e6/references/video_classification/transforms.py
+else
+    echo "transforms.py already downloaded"
+fi
+
 if [ ! -f requirements.txt ]; then
     echo "requirements.txt not found"
 else

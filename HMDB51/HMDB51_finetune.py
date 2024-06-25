@@ -88,9 +88,7 @@ test_loader  = DataLoader(hmdb51_test, batch_size=bs, shuffle=False, **kwargs)
 
 model = VideoRecog_Model(hmdb_args)
 
-fix_base = False
-
-if fix_base:
+if hmdb_args.fix_base:
     for param in model.base_model.parameters():
         param.requires_grad = False
 
