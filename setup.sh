@@ -1,6 +1,6 @@
 if command -v apt-get >/dev/null 2>&1; then
     apt-get update && apt-get install ffmpeg libsm6 libxext6 unar vim htop unzip gcc curl g++ -y
-    apt-get install libavformat-dev libavdevice-dev unrar
+    apt-get install libavformat-dev libavdevice-dev unrar unzip
 elif command -v brew >/dev/null 2>&1; then
     brew update && brew install ffmpeg libsm libxext unar
     brew install carlocab/personal/unrar
