@@ -19,8 +19,8 @@ parser.add_argument('--val_split', type=float, default=0.05)
 parser.add_argument('--num_frames', type=int, default=16)
 parser.add_argument('--clip_steps', type=int, default=50)
 parser.add_argument('--crop_size', type=int, default=112)
-parser.add_argument('--video_dir', type=str, default='hmdb51_video_data/')
-parser.add_argument('--split_dir', type=str, default='hmdb51_test_train_splits')
+parser.add_argument('--video_dir', type=str, default='ucf101_video_data/')
+parser.add_argument('--split_dir', type=str, default='ucf101_test_train_splits')
 
 #TRAINING PARAMS
 parser.add_argument('--num_workers', type=int, default=8)
@@ -34,27 +34,27 @@ parser.add_argument('--patience', type=int, default=2)
 parser.add_argument('--lr_factor', type=float, default=0.5)
 parser.add_argument('--min_lr', type=float, default=1e-8)
 
-hmdb_args = parser.parse_args()
+ucf_args = parser.parse_args()
 
-lr = hmdb_args.lr
-gamma = hmdb_args.gamma
-lr_red_step = hmdb_args.lr_red_step
-total_epochs = hmdb_args.total_epochs
+lr = ucf_args.lr
+gamma = ucf_args.gamma
+lr_red_step = ucf_args.lr_red_step
+total_epochs = ucf_args.total_epochs
 config = {}
-num_workers = hmdb_args.num_workers
-patience = hmdb_args.patience
-lr_factor = hmdb_args.lr_factor
-min_lr = hmdb_args.min_lr
+num_workers = ucf_args.num_workers
+patience = ucf_args.patience
+lr_factor = ucf_args.lr_factor
+min_lr = ucf_args.min_lr
 
-train_loader, val_loader, test_loader = get_dataloaders(hmdb_args)
+train_loader, val_loader, test_loader = get_dataloaders(ucf_args)
 
-model = VideoRecog_Model(hmdb_args)
+model = VideoRecog_Model(ucf_args)
 
-if hmdb_args.fix_base:
+if ucf_args.fix_base:
     for param in model.base_model.parameters():
         param.requires_grad = False
 
-#model = torch.load('hmdb51_finetune.pth')
+#model = torch.load('ucf101_finetune.pth')
 print(model)
 
 if torch.cuda.is_available():
@@ -70,13 +70,13 @@ os.makedirs('ckpts', exist_ok=True)
 for epoch in range(1, total_epochs + 1):
     train(config, model, train_loader, optimizer, epoch)
     val_loss = test(model, val_loader, text="Validation")
-    if (epoch+1) % hmdb_args.ckpt_freq == 0:
-        ckpt_path = os.path.join('ckpts', f'HMDB51-{epoch+1}epochs.pt')
+    if (epoch+1) % ucf_args.ckpt_freq == 0:
+        ckpt_path = os.path.join('ckpts', f'UCF101-{epoch+1}epochs.pt')
         torch.save(model.state_dict(), ckpt_path)
         print(f'Checkpoint saved at {ckpt_path}')
     scheduler.step()
 
 test(model, test_loader, text="Test")
 
-#torch.save(model.state_dict(), 'hmdb51_finetune_state_dict.pth')
-#torch.save(model, 'hmdb51_finetune.pth')
+#torch.save(model.state_dict(), 'ucf101_finetune_state_dict.pth')
+#torch.save(model, 'ucf101_finetune.pth')

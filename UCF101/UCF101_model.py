@@ -11,5 +11,6 @@ class VideoRecog_Model(nn.Module):
 
   def forward(self, x):
       out = self.base_model(x).squeeze(4).squeeze(3).squeeze(2) # output of base model is bs x 512 x 1 x 1 x 1
+      out = self.dropout(out)
       out = self.fc1(out)
       return out
