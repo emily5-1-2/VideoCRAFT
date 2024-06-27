@@ -5,9 +5,8 @@ matplotlib==3.9.0
 numpy
 opencv_python==4.9.0.80
 pandas==2.2.2
-Pillow==9.0.1
-Pillow==10.3.0
-scikit_learn==1.5.0
+Pillow
+scikit_learn
 scipy==1.14.0
 seaborn==0.13.2
 tensorflow==2.16.1
