@@ -4,6 +4,8 @@ if [ ! -d "ucf101_video_data" ]; then
     mkdir -p ucf101_video_data ucf101_test_train_splits
     unzip UCF101TrainTestSplits-RecognitionTask.zip -d ucf101_test_train_splits
     rm UCF101TrainTestSplits-RecognitionTask.zip
+    mv ucf101_test_train_splits/ucfTrainTestlist/*.txt ucf101_test_train_splits
+    rmdir ucf101_test_train_splits/ucfTrainTestlist
     unrar e UCF101.rar
     rm UCF101.rar
     mv *.avi ucf101_video_data
