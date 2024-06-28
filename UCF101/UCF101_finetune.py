@@ -66,10 +66,15 @@ scheduler = StepLR(optimizer, step_size=lr_red_step, gamma=gamma)
 #scheduler = ReduceLROnPlateau(optimizer=optimizer, patience=patience, factor=lr_factor, min_lr=min_lr)
 
 print("Launching Action Recognition Model training")
+prev_loss = 1e12
 os.makedirs('ckpts', exist_ok=True)
 for epoch in range(1, total_epochs + 1):
     train(config, model, train_loader, optimizer, epoch)
     val_loss = test(model, val_loader, text="Validation")
+    if val_loss < prev_loss:
+        ckpt_path = os.path.join('ckpts', f'HMDB51-best.pt')
+        torch.save(model.state_dict(), ckpt_path)
+        print(f'Best checkpoint saved at {ckpt_path}')
     if (epoch+1) % ucf_args.ckpt_freq == 0:
         ckpt_path = os.path.join('ckpts', f'UCF101-{epoch+1}epochs.pt')
         torch.save(model.state_dict(), ckpt_path)
